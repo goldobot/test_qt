@@ -136,6 +136,7 @@ namespace QT_TEST
     :QWidget()
   {
     m_anim_time = 0.0;
+    m_anim_index = 0;
 
     m_anim_running = false;
 
@@ -145,63 +146,175 @@ namespace QT_TEST
     my_robot = new RobotImg(-400.0, -800.0, 0.5*M_PI);
 
     edit_traj_p << QPoint(375-100,250+200);
+
+    edit_traj_curr_T = 0.0;
+
+    edit_traj_curr_Theta = my_robot->GetTheta();
   }
 
+#define PLAYGROUND_SZ_X_MM  3000
+#define PLAYGROUND_SZ_Y_MM  2000
+
+#define PLAYGROUND_SCALE  4.0
+
+#define ANIMATION_SAMPLING_FREQ 10
+
+#define QT_TEST_WIDGET_SZ_X (PLAYGROUND_SZ_X_MM/PLAYGROUND_SCALE)
+#define QT_TEST_WIDGET_SZ_Y (PLAYGROUND_SZ_Y_MM/PLAYGROUND_SCALE)
 
   void 
-  QtRobotPlaygroundWidget::StartAnimation() 
+  QtRobotPlaygroundWidget::CoordVirtToGUI(QPointF &v_P, QPoint &g_P)
+  {
+    int g_off_x = QT_TEST_WIDGET_SZ_X/2;
+    int g_off_y = QT_TEST_WIDGET_SZ_Y/2;
+
+    g_P.setX(g_off_x+v_P.x()/PLAYGROUND_SCALE);
+    g_P.setY(g_off_y-v_P.y()/PLAYGROUND_SCALE);
+  }
+
+  void 
+  QtRobotPlaygroundWidget::CoordGUIToVirt(QPoint &g_P, QPointF &v_P)
+  {
+    int g_off_x = QT_TEST_WIDGET_SZ_X/2;
+    int g_off_y = QT_TEST_WIDGET_SZ_Y/2;
+
+    v_P.setX((g_P.x()-g_off_x)*PLAYGROUND_SCALE);
+    v_P.setY((-1.0)*(g_P.y()-g_off_y)*PLAYGROUND_SCALE);
+  }
+
+  void 
+  QtRobotPlaygroundWidget::InitAnimation() 
   {
     m_anim_time = 0.0;
+    m_anim_index = 0;
 
     my_robot->SetX(-400.0);
     my_robot->SetY(-800.0);
     my_robot->SetTheta(0.5*M_PI);
 
+    for (int i=0; i < edit_traj_te.size(); i++) {
+      edit_traj_te[i].Reset();
+    }
+
+    m_anim_running = false;
+
+    repaint();
+  }
+
+  void 
+  QtRobotPlaygroundWidget::StartAnimation() 
+  {
+    m_anim_time = 0.0;
+    m_anim_index = 0;
+
+    my_robot->SetX(-400.0);
+    my_robot->SetY(-800.0);
+    my_robot->SetTheta(0.5*M_PI);
+
+    for (int i=0; i < edit_traj_te.size(); i++) {
+      edit_traj_te[i].Reset();
+    }
+
+    DumpTrajectory();
+
     m_anim_running = true;
   }
 
+  void 
+  QtRobotPlaygroundWidget::DumpTrajectory() 
+  {
+
+    if (!edit_traj_te.isEmpty()) {
+      printf ("edit_traj_te.size()=%d\n", edit_traj_te.size());
+      printf ("\n");
+
+      for (int i=0; i < edit_traj_te.size(); i++) {
+        printf ("m_anim_index=%d\n", i);
+        TrajElement &te = edit_traj_te[i];
+        switch (te.GetType()) {
+        case TrajElementTypeNull:
+          printf ("stop\n");
+          break;
+        case TrajElementTypeStraight:
+          printf ("straight\n");
+          break;
+        case TrajElementTypeRot:
+          printf ("rotate\n");
+          break;
+        }
+        printf ("pos: (%f,%f) -> (%f,%f)\n", 
+                te.GetP0().x(), te.GetP0().y(),
+                te.GetPf().x(), te.GetPf().y());
+        printf ("theta: %f -> %f\n", 
+                te.GetTheta0(), te.GetThetaf());
+        printf ("\n");
+      }
+    }
+  }
+
+  void 
+  QtRobotPlaygroundWidget::StopAnimation() 
+  {
+    m_anim_running = false;
+
+    repaint();
+  }
 
   void 
   QtRobotPlaygroundWidget::AnimationTimerTick() 
   {
     if (!m_anim_running) return;
 
-    if (m_anim_time < 4.0) {
-      double my_dist = 1000.0;
-      double my_time = 4.0;
-      double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
-      double inc_X = inc_D*cos(my_robot->GetTheta());
-      double inc_Y = inc_D*sin(my_robot->GetTheta());
-      my_robot->SetX(my_robot->GetX() + inc_X);
-      my_robot->SetY(my_robot->GetY() + inc_Y);
-    } else if (m_anim_time < 7.9) {
-      double my_angle = (-M_PI/2);
-      double my_time = 4.0;
-      double inc_Theta = (my_angle/(my_time*ANIMATION_SAMPLING_FREQ));
-      my_robot->SetTheta(my_robot->GetTheta() + inc_Theta);
-    } else if (m_anim_time < 12.0) {
-      double my_dist = 1500.0;
-      double my_time = 4.0;
-      double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
-      double inc_X = inc_D*cos(my_robot->GetTheta());
-      double inc_Y = inc_D*sin(my_robot->GetTheta());
-      my_robot->SetX(my_robot->GetX() + inc_X);
-      my_robot->SetY(my_robot->GetY() + inc_Y);
-    } else if (m_anim_time < 15.9) {
-      double my_angle = (-2.0*M_PI/3);
-      double my_time = 4.0;
-      double inc_Theta = (my_angle/(my_time*ANIMATION_SAMPLING_FREQ));
-      my_robot->SetTheta(my_robot->GetTheta() + inc_Theta);
-    } else if (m_anim_time < 20.0) {
-      double my_dist = 500.0;
-      double my_time = 4.0;
-      double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
-      double inc_X = inc_D*cos(my_robot->GetTheta());
-      double inc_Y = inc_D*sin(my_robot->GetTheta());
-      my_robot->SetX(my_robot->GetX() + inc_X);
-      my_robot->SetY(my_robot->GetY() + inc_Y);
+    if (edit_traj_te.isEmpty()) {
+      if (m_anim_time < 4.0) {
+        double my_dist = 1000.0;
+        double my_time = 4.0;
+        double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
+        double inc_X = inc_D*cos(my_robot->GetTheta());
+        double inc_Y = inc_D*sin(my_robot->GetTheta());
+        my_robot->SetX(my_robot->GetX() + inc_X);
+        my_robot->SetY(my_robot->GetY() + inc_Y);
+      } else if (m_anim_time < 7.9) {
+        double my_angle = (-M_PI/2);
+        double my_time = 4.0;
+        double inc_Theta = (my_angle/(my_time*ANIMATION_SAMPLING_FREQ));
+        my_robot->SetTheta(my_robot->GetTheta() + inc_Theta);
+      } else if (m_anim_time < 12.0) {
+        double my_dist = 1500.0;
+        double my_time = 4.0;
+        double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
+        double inc_X = inc_D*cos(my_robot->GetTheta());
+        double inc_Y = inc_D*sin(my_robot->GetTheta());
+        my_robot->SetX(my_robot->GetX() + inc_X);
+        my_robot->SetY(my_robot->GetY() + inc_Y);
+      } else if (m_anim_time < 15.9) {
+        double my_angle = (-2.0*M_PI/3);
+        double my_time = 4.0;
+        double inc_Theta = (my_angle/(my_time*ANIMATION_SAMPLING_FREQ));
+        my_robot->SetTheta(my_robot->GetTheta() + inc_Theta);
+      } else if (m_anim_time < 20.0) {
+        double my_dist = 500.0;
+        double my_time = 4.0;
+        double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
+        double inc_X = inc_D*cos(my_robot->GetTheta());
+        double inc_Y = inc_D*sin(my_robot->GetTheta());
+        my_robot->SetX(my_robot->GetX() + inc_X);
+        my_robot->SetY(my_robot->GetY() + inc_Y);
+      } else {
+        m_anim_running = false;
+      }
     } else {
-      m_anim_running = false;
+      TrajElement &te = edit_traj_te[m_anim_index];
+      if (m_anim_time < te.GetTf()) {
+        my_robot->SetX(te.GetX());
+        my_robot->SetY(te.GetY());
+        my_robot->SetTheta(te.GetTheta());
+        te.Increment();
+      } else {
+        m_anim_index++;
+
+        if (m_anim_index > edit_traj_te.size()) m_anim_running = false;
+      }
     }
 
     repaint();
@@ -213,7 +326,28 @@ namespace QT_TEST
   void
   QtRobotPlaygroundWidget::mousePressEvent(QMouseEvent * event)
   {
-    edit_traj_p << QPoint(event->x(),event->y());
+    QPointF P0;
+    QPointF Pf;
+    QPoint GP0 = edit_traj_p.last();
+    QPoint GPf(event->x(),event->y());
+
+    edit_traj_p << GPf;
+
+    double T0 = edit_traj_curr_T;
+    double T1 = edit_traj_curr_T + 4.0;
+    double T2 = edit_traj_curr_T + 8.0;
+    edit_traj_curr_T = T2;
+
+    CoordGUIToVirt(GP0,P0);
+    CoordGUIToVirt(GPf,Pf);
+
+    TrajElement straight(TrajElementTypeStraight, P0, Pf, 0.0, 0.0, T1, T2, ANIMATION_SAMPLING_FREQ);
+    TrajElement rot(TrajElementTypeRot, P0, Pf, edit_traj_curr_Theta, straight.GetTheta(), T0, T1, ANIMATION_SAMPLING_FREQ);
+
+    edit_traj_curr_Theta = straight.GetTheta();
+
+    edit_traj_te << rot << straight;
+
     repaint();
   }
 
@@ -328,13 +462,25 @@ namespace QT_TEST
     pQtTestTopLayout->addWidget(&m_QtTestTopLabel);
     pQtTestTopLayout->addStretch();
 
-    m_ShutdownButton.setText("Shutdown");
-    m_ShutdownButton.setDisabled(false);
-    pQtTestTopLayout->addWidget(&m_ShutdownButton);
+    QPushButton *pShutdownButton = new QPushButton;
+    pShutdownButton->setText("Shutdown");
+    pShutdownButton->setDisabled(false);
+    pQtTestTopLayout->addWidget(pShutdownButton);
 
-    m_StartAnimationButton.setText("Start animationn");
-    m_StartAnimationButton.setDisabled(false);
-    pQtTestTopLayout->addWidget(&m_StartAnimationButton);
+    QPushButton *pInitAnimationButton = new QPushButton;
+    pInitAnimationButton->setText("Init animation");
+    pInitAnimationButton->setDisabled(false);
+    pQtTestTopLayout->addWidget(pInitAnimationButton);
+
+    QPushButton *pStartAnimationButton = new QPushButton;
+    pStartAnimationButton->setText("Start animation");
+    pStartAnimationButton->setDisabled(false);
+    pQtTestTopLayout->addWidget(pStartAnimationButton);
+
+    QPushButton *pStopAnimationButton = new QPushButton;
+    pStopAnimationButton->setText("Stop animation");
+    pStopAnimationButton->setDisabled(false);
+    pQtTestTopLayout->addWidget(pStopAnimationButton);
 
     pUpperLayout->addLayout(pQtTestTopLayout);
 
@@ -392,9 +538,13 @@ namespace QT_TEST
 
     setContextMenuPolicy(Qt::CustomContextMenu);
 
-    connect(&m_ShutdownButton,SIGNAL(clicked()), this, SLOT(RequestShutdown()));
+    connect(pShutdownButton,SIGNAL(clicked()), this, SLOT(RequestShutdown()));
 
-    connect(&m_StartAnimationButton,SIGNAL(clicked()), pplayground, SLOT(StartAnimation()));
+    connect(pInitAnimationButton,SIGNAL(clicked()), pplayground, SLOT(InitAnimation()));
+
+    connect(pStartAnimationButton,SIGNAL(clicked()), pplayground, SLOT(StartAnimation()));
+
+    connect(pStopAnimationButton,SIGNAL(clicked()), pplayground, SLOT(StopAnimation()));
 
     connect(&m_AnimTimer, SIGNAL(timeout()), pplayground, SLOT(AnimationTimerTick()));
 
@@ -532,61 +682,5 @@ namespace QT_TEST
     }
 
   }
-
-
-  QtTestWidget::QtTestWidget()
-    :QWidget()
-  {
-    my_color = Qt::white;
-    setFixedSize(QT_TEST_WIDGET_SZ_X,QT_TEST_WIDGET_SZ_Y);
-  }
-
-
-  void
-  QtTestWidget::paintEvent(QPaintEvent *event)
-  {
-    QWidget::paintEvent(event);
-
-    QPainter painter(this);
-
-#if 1 /* pour forcer la couleur du background du widget (sinon il utilise les parametres du parent) */
-    QStyleOption sopt;
-    sopt.init(this);
-    style()->drawPrimitive(QStyle::PE_Widget, &sopt, &painter, this);
-#endif
-
-#if 1 /* pour dessiner un cadre autour du widget */
-    QPolygon cadre;
-    cadre << QPoint(                  0,                   0) 
-          << QPoint(QT_TEST_WIDGET_SZ_X,                   0) 
-          << QPoint(QT_TEST_WIDGET_SZ_X, QT_TEST_WIDGET_SZ_Y) 
-          << QPoint(                  0, QT_TEST_WIDGET_SZ_Y); 
-
-    QPen my_pen0 (Qt::black, 2, Qt::SolidLine);
-    painter.setPen(my_pen0);
-#endif
-
-    painter.drawPolygon(cadre);
-
-    int x_offset = QT_TEST_WIDGET_SZ_X/2;
-    int y_offset = QT_TEST_WIDGET_SZ_Y/2;
-    QPolygon etoile;
-    etoile << QPoint(x_offset-30, y_offset +0) 
-           << QPoint(x_offset -5, y_offset +5) 
-           << QPoint(x_offset +0, y_offset+30) 
-           << QPoint(x_offset +5, y_offset +5) 
-           << QPoint(x_offset+30, y_offset +0) 
-           << QPoint(x_offset +5, y_offset -5) 
-           << QPoint(x_offset +0, y_offset-30)
-           << QPoint(x_offset -5, y_offset -5);
-
-    QPen my_pen1 (Qt::black, 4, Qt::SolidLine);
-    painter.setPen(my_pen1);
-    //painter.setBrush(QBrush(Qt::green, Qt::SolidPattern));
-    painter.setBrush(QBrush(my_color, Qt::SolidPattern));
-
-    painter.drawPolygon(etoile);
-  }
-
 
 }
