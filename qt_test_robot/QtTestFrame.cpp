@@ -152,16 +152,6 @@ namespace QT_TEST
     edit_traj_curr_Theta = my_robot->GetTheta();
   }
 
-#define PLAYGROUND_SZ_X_MM  3000
-#define PLAYGROUND_SZ_Y_MM  2000
-
-#define PLAYGROUND_SCALE  4.0
-
-#define ANIMATION_SAMPLING_FREQ 10
-
-#define QT_TEST_WIDGET_SZ_X (PLAYGROUND_SZ_X_MM/PLAYGROUND_SCALE)
-#define QT_TEST_WIDGET_SZ_Y (PLAYGROUND_SZ_Y_MM/PLAYGROUND_SCALE)
-
   void 
   QtRobotPlaygroundWidget::CoordVirtToGUI(QPointF &v_P, QPoint &g_P)
   {
