@@ -1,0 +1,136 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ANIMATION_SAMPLING_FREQ	qt_test_robot/QtTestFrame.cpp	30;"	d	file:
+AnimationTimerTick	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::AnimationTimerTick() $/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+CommandLineToArgvA	qt_test_robot/main.cpp	/^PCHAR *CommandLineToArgvA(PCHAR CmdLine, int *_argc)$/;"	f
+CoordGUIToVirt	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::CoordGUIToVirt(QPoint &g_P, QPointF &v_P)$/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+CoordVirtToGUI	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::CoordVirtToGUI(QPointF &v_P, QPoint &g_P)$/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+Draw	qt_test_robot/QtTestFrame.cpp	/^  RobotImg::Draw(QPainter &painter)$/;"	f	class:QT_TEST::RobotImg
+DumpTrajectory	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::DumpTrajectory() $/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+ForwardNetworkInterfaceIsActive	qt_test_robot/QtTestComponentManager.cpp	/^  QtTestComponentManager::ForwardNetworkInterfaceIsActive()$/;"	f	class:QT_TEST::QtTestComponentManager
+ForwardNetworkInterfaceIsInactive	qt_test_robot/QtTestComponentManager.cpp	/^  QtTestComponentManager::ForwardNetworkInterfaceIsInactive()$/;"	f	class:QT_TEST::QtTestComponentManager
+GetP0	qt_test_robot/QtTestFrame.h	/^      QPointF GetP0() {return my_P0;};$/;"	f	class:QT_TEST::TrajElement
+GetPf	qt_test_robot/QtTestFrame.h	/^      QPointF GetPf() {return my_Pf;};$/;"	f	class:QT_TEST::TrajElement
+GetPolygon	qt_test_robot/QtTestFrame.h	/^      const QPolygon &GetPolygon() {GenPolygon(); return Poly;};$/;"	f	class:QT_TEST::UtilArrow
+GetT0	qt_test_robot/QtTestFrame.h	/^      double GetT0() {return my_T0;};$/;"	f	class:QT_TEST::TrajElement
+GetTf	qt_test_robot/QtTestFrame.h	/^      double GetTf() {return my_Tf;};$/;"	f	class:QT_TEST::TrajElement
+GetTheta	qt_test_robot/QtTestFrame.h	/^      double GetTheta() {return my_Theta;};$/;"	f	class:QT_TEST::TrajElement
+GetTheta	qt_test_robot/QtTestFrame.h	/^      double GetTheta() {return pos_theta;};$/;"	f	class:QT_TEST::RobotImg
+GetTheta0	qt_test_robot/QtTestFrame.h	/^      double GetTheta0() {return my_Theta0;};$/;"	f	class:QT_TEST::TrajElement
+GetThetaf	qt_test_robot/QtTestFrame.h	/^      double GetThetaf() {return my_Thetaf;};$/;"	f	class:QT_TEST::TrajElement
+GetType	qt_test_robot/QtTestFrame.h	/^      TrajElementType GetType() {return my_type;};$/;"	f	class:QT_TEST::TrajElement
+GetX	qt_test_robot/QtTestFrame.h	/^      double GetX() {return my_X;};$/;"	f	class:QT_TEST::TrajElement
+GetX	qt_test_robot/QtTestFrame.h	/^      double GetX() {return pos_x;};$/;"	f	class:QT_TEST::RobotImg
+GetY	qt_test_robot/QtTestFrame.h	/^      double GetY() {return my_Y;};$/;"	f	class:QT_TEST::TrajElement
+GetY	qt_test_robot/QtTestFrame.h	/^      double GetY() {return pos_y;};$/;"	f	class:QT_TEST::RobotImg
+Increment	qt_test_robot/QtTestFrame.h	/^      void Increment () $/;"	f	class:QT_TEST::TrajElement
+InitAnimation	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::InitAnimation() $/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+InvertYAndScaleQPointF	qt_test_robot/QtTestFrame.cpp	/^  RobotImg::InvertYAndScaleQPointF(QPointF &p, double scale)$/;"	f	class:QT_TEST::RobotImg
+Monitor	qt_test_robot/QtTestNetworkInterfaceStatus.cpp	/^  QtTestNetworkInterfaceStatus::Monitor()$/;"	f	class:QT_TEST::QtTestNetworkInterfaceStatus
+PLAYGROUND_SCALE	qt_test_robot/QtTestFrame.cpp	28;"	d	file:
+PLAYGROUND_SZ_X_MM	qt_test_robot/QtTestFrame.cpp	25;"	d	file:
+PLAYGROUND_SZ_Y_MM	qt_test_robot/QtTestFrame.cpp	26;"	d	file:
+Poly	qt_test_robot/QtTestFrame.h	/^      QPolygon Poly;$/;"	m	class:QT_TEST::UtilArrow
+QRP	qt_test_robot/QtTestFrame.cpp	20;"	d	file:
+QRP	qt_test_robot/QtTestFrame.cpp	22;"	d	file:
+QT_TEST	qt_test_robot/QtTestComponentManager.cpp	/^namespace QT_TEST$/;"	n	file:
+QT_TEST	qt_test_robot/QtTestComponentManager.h	/^namespace QT_TEST$/;"	n
+QT_TEST	qt_test_robot/QtTestFrame.cpp	/^namespace QT_TEST$/;"	n	file:
+QT_TEST	qt_test_robot/QtTestFrame.h	/^namespace QT_TEST$/;"	n
+QT_TEST	qt_test_robot/QtTestNetworkInterfaceStatus.cpp	/^namespace QT_TEST$/;"	n	file:
+QT_TEST	qt_test_robot/QtTestNetworkInterfaceStatus.h	/^namespace QT_TEST$/;"	n
+QT_TEST_WIDGET_SZ_X	qt_test_robot/QtTestFrame.cpp	32;"	d	file:
+QT_TEST_WIDGET_SZ_Y	qt_test_robot/QtTestFrame.cpp	33;"	d	file:
+QtRobotPlaygroundWidget	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::QtRobotPlaygroundWidget()$/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+QtRobotPlaygroundWidget	qt_test_robot/QtTestFrame.h	/^  class QtRobotPlaygroundWidget : public QWidget$/;"	c	namespace:QT_TEST
+QtTestAlarmIcon	qt_test_robot/QtTestFrame.h	/^  class QtTestAlarmIcon : public QLabel$/;"	c	namespace:QT_TEST
+QtTestComponentManager	qt_test_robot/QtTestComponentManager.cpp	/^  QtTestComponentManager::QtTestComponentManager()$/;"	f	class:QT_TEST::QtTestComponentManager
+QtTestComponentManager	qt_test_robot/QtTestComponentManager.h	/^  class QtTestComponentManager : public QObject$/;"	c	namespace:QT_TEST
+QtTestFrame	qt_test_robot/QtTestFrame.h	/^  class QtTestFrame : public QFrame$/;"	c	namespace:QT_TEST
+QtTestNetworkInterfaceStatus	qt_test_robot/QtTestNetworkInterfaceStatus.cpp	/^  QtTestNetworkInterfaceStatus::QtTestNetworkInterfaceStatus(const QString &\/*interfaceName*\/)$/;"	f	class:QT_TEST::QtTestNetworkInterfaceStatus
+QtTestNetworkInterfaceStatus	qt_test_robot/QtTestNetworkInterfaceStatus.h	/^  class QtTestNetworkInterfaceStatus : public QObject$/;"	c	namespace:QT_TEST
+Reset	qt_test_robot/QtTestFrame.h	/^      void Reset() {my_X = my_P0.x(); my_Y = my_P0.y(); my_Theta = my_Theta0;};$/;"	f	class:QT_TEST::TrajElement
+RobotImg	qt_test_robot/QtTestFrame.cpp	/^  RobotImg::RobotImg(double _x_init, double _y_init, double _theta_init)$/;"	f	class:QT_TEST::RobotImg
+RobotImg	qt_test_robot/QtTestFrame.h	/^  class RobotImg$/;"	c	namespace:QT_TEST
+RotateQPointF	qt_test_robot/QtTestFrame.cpp	/^  RobotImg::RotateQPointF(QPointF &src_p, double angle, QPointF &dst_p)$/;"	f	class:QT_TEST::RobotImg
+SecuredMain	qt_test_robot/main.cpp	/^int SecuredMain(int &argc, char **argv)$/;"	f
+SetColor	qt_test_robot/QtTestFrame.h	/^      void SetColor(const QColor &_color) {my_color = _color;};$/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+SetNetworkInterfaceStatusAlarm	qt_test_robot/QtTestFrame.h	/^      void SetNetworkInterfaceStatusAlarm(int status) { m_NetworkInterfaceStatusAlarmIcon->SetAlarmStatus(status); }$/;"	f	class:QT_TEST::QtTestFrame
+SetTheta	qt_test_robot/QtTestFrame.h	/^      void SetTheta(double _theta) {my_Theta = _theta;};$/;"	f	class:QT_TEST::TrajElement
+SetTheta	qt_test_robot/QtTestFrame.h	/^      void SetTheta(double _theta) {pos_theta=_theta;};$/;"	f	class:QT_TEST::RobotImg
+SetX	qt_test_robot/QtTestFrame.h	/^      void SetX(double _x) {my_X = _x;};$/;"	f	class:QT_TEST::TrajElement
+SetX	qt_test_robot/QtTestFrame.h	/^      void SetX(double _x) {pos_x=_x;};$/;"	f	class:QT_TEST::RobotImg
+SetY	qt_test_robot/QtTestFrame.h	/^      void SetY(double _y) {my_Y = _y;};$/;"	f	class:QT_TEST::TrajElement
+SetY	qt_test_robot/QtTestFrame.h	/^      void SetY(double _y) {pos_y=_y;};$/;"	f	class:QT_TEST::RobotImg
+StartAnimation	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::StartAnimation() $/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+StopAnimation	qt_test_robot/QtTestFrame.cpp	/^  QtRobotPlaygroundWidget::StopAnimation() $/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+TrajElement	qt_test_robot/QtTestFrame.h	/^      TrajElement()$/;"	f	class:QT_TEST::TrajElement
+TrajElement	qt_test_robot/QtTestFrame.h	/^      TrajElement(TrajElementType _type, QPointF _P0, QPointF _Pf, double _Theta0, double _Thetaf, double _T0, double _Tf, double _sampling_f)$/;"	f	class:QT_TEST::TrajElement
+TrajElement	qt_test_robot/QtTestFrame.h	/^  class TrajElement$/;"	c	namespace:QT_TEST
+TrajElementType	qt_test_robot/QtTestFrame.h	/^  typedef enum _TrajElementType {TrajElementTypeNull = 0, TrajElementTypeStraight, TrajElementTypeRot} TrajElementType;$/;"	t	namespace:QT_TEST	typeref:enum:QT_TEST::_TrajElementType
+TrajElementTypeNull	qt_test_robot/QtTestFrame.h	/^  typedef enum _TrajElementType {TrajElementTypeNull = 0, TrajElementTypeStraight, TrajElementTypeRot} TrajElementType;$/;"	e	enum:QT_TEST::_TrajElementType
+TrajElementTypeRot	qt_test_robot/QtTestFrame.h	/^  typedef enum _TrajElementType {TrajElementTypeNull = 0, TrajElementTypeStraight, TrajElementTypeRot} TrajElementType;$/;"	e	enum:QT_TEST::_TrajElementType
+TrajElementTypeStraight	qt_test_robot/QtTestFrame.h	/^  typedef enum _TrajElementType {TrajElementTypeNull = 0, TrajElementTypeStraight, TrajElementTypeRot} TrajElementType;$/;"	e	enum:QT_TEST::_TrajElementType
+UtilArrow	qt_test_robot/QtTestFrame.h	/^  class UtilArrow : public QVector<QPoint>$/;"	c	namespace:QT_TEST
+W	qt_test_robot/QtTestFrame.h	/^      int W;$/;"	m	class:QT_TEST::UtilArrow
+WinMain	qt_test_robot/main.cpp	/^int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)$/;"	f
+_TrajElementType	qt_test_robot/QtTestFrame.h	/^  typedef enum _TrajElementType {TrajElementTypeNull = 0, TrajElementTypeStraight, TrajElementTypeRot} TrajElementType;$/;"	g	namespace:QT_TEST
+__QT_TESTCOMPONENTMANAGER_H__	qt_test_robot/QtTestComponentManager.h	2;"	d
+__QT_TESTNETWORKINTERFACESTATUS_H__	qt_test_robot/QtTestNetworkInterfaceStatus.h	2;"	d
+__QT_TEST_FRAME_H__	qt_test_robot/QtTestFrame.h	2;"	d
+arrow_end	qt_test_robot/QtTestFrame.h	/^      QPointF arrow_end;$/;"	m	class:QT_TEST::RobotImg
+arrow_start	qt_test_robot/QtTestFrame.h	/^      QPointF arrow_start;$/;"	m	class:QT_TEST::RobotImg
+edit_traj_curr_T	qt_test_robot/QtTestFrame.h	/^      double edit_traj_curr_T;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+edit_traj_curr_Theta	qt_test_robot/QtTestFrame.h	/^      double edit_traj_curr_Theta;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+edit_traj_p	qt_test_robot/QtTestFrame.h	/^      QVector<QPoint> edit_traj_p;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+edit_traj_te	qt_test_robot/QtTestFrame.h	/^      QVector<TrajElement> edit_traj_te;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+m_AnimTimer	qt_test_robot/QtTestFrame.h	/^      QTimer m_AnimTimer;$/;"	m	class:QT_TEST::QtTestFrame
+m_Frame	qt_test_robot/QtTestComponentManager.h	/^      QtTestFrame m_Frame;$/;"	m	class:QT_TEST::QtTestComponentManager
+m_IPAddress	qt_test_robot/QtTestNetworkInterfaceStatus.h	/^      QString m_IPAddress;$/;"	m	class:QT_TEST::QtTestNetworkInterfaceStatus
+m_NetMask	qt_test_robot/QtTestNetworkInterfaceStatus.h	/^      int m_NetMask;$/;"	m	class:QT_TEST::QtTestNetworkInterfaceStatus
+m_NetworkInterfaceStatus	qt_test_robot/QtTestComponentManager.h	/^      QtTestNetworkInterfaceStatus m_NetworkInterfaceStatus;$/;"	m	class:QT_TEST::QtTestComponentManager
+m_NetworkInterfaceStatusAlarmIcon	qt_test_robot/QtTestFrame.h	/^      QtTestAlarmIcon *m_NetworkInterfaceStatusAlarmIcon;$/;"	m	class:QT_TEST::QtTestFrame
+m_NetworkInterfaceStatusThread	qt_test_robot/QtTestComponentManager.h	/^      QThread m_NetworkInterfaceStatusThread;$/;"	m	class:QT_TEST::QtTestComponentManager
+m_QtTestTopLabel	qt_test_robot/QtTestFrame.h	/^      QLabel m_QtTestTopLabel;$/;"	m	class:QT_TEST::QtTestFrame
+m_TimerMonitoring	qt_test_robot/QtTestNetworkInterfaceStatus.h	/^      QTimer m_TimerMonitoring;$/;"	m	class:QT_TEST::QtTestNetworkInterfaceStatus
+m_anim_index	qt_test_robot/QtTestFrame.h	/^      int m_anim_index;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+m_anim_running	qt_test_robot/QtTestFrame.h	/^      bool m_anim_running;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+m_anim_time	qt_test_robot/QtTestFrame.h	/^      double m_anim_time;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+main	qt_test_robot/main.cpp	/^int main(int argc, char *argv[])$/;"	f
+my_P0	qt_test_robot/QtTestFrame.h	/^      QPointF my_P0;$/;"	m	class:QT_TEST::TrajElement
+my_Pf	qt_test_robot/QtTestFrame.h	/^      QPointF my_Pf;$/;"	m	class:QT_TEST::TrajElement
+my_T0	qt_test_robot/QtTestFrame.h	/^      double my_T0;$/;"	m	class:QT_TEST::TrajElement
+my_Tf	qt_test_robot/QtTestFrame.h	/^      double my_Tf;$/;"	m	class:QT_TEST::TrajElement
+my_Theta	qt_test_robot/QtTestFrame.h	/^      double my_Theta;$/;"	m	class:QT_TEST::TrajElement
+my_Theta0	qt_test_robot/QtTestFrame.h	/^      double my_Theta0;$/;"	m	class:QT_TEST::TrajElement
+my_Thetaf	qt_test_robot/QtTestFrame.h	/^      double my_Thetaf;$/;"	m	class:QT_TEST::TrajElement
+my_X	qt_test_robot/QtTestFrame.h	/^      double my_X;$/;"	m	class:QT_TEST::TrajElement
+my_Y	qt_test_robot/QtTestFrame.h	/^      double my_Y;$/;"	m	class:QT_TEST::TrajElement
+my_color	qt_test_robot/QtTestFrame.h	/^      QColor my_color;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+my_delta_T	qt_test_robot/QtTestFrame.h	/^      double my_delta_T;$/;"	m	class:QT_TEST::TrajElement
+my_delta_Theta	qt_test_robot/QtTestFrame.h	/^      double my_delta_Theta;$/;"	m	class:QT_TEST::TrajElement
+my_dist	qt_test_robot/QtTestFrame.h	/^      double my_dist;$/;"	m	class:QT_TEST::TrajElement
+my_inc_D	qt_test_robot/QtTestFrame.h	/^      double my_inc_D;$/;"	m	class:QT_TEST::TrajElement
+my_inc_Theta	qt_test_robot/QtTestFrame.h	/^      double my_inc_Theta;$/;"	m	class:QT_TEST::TrajElement
+my_inc_X	qt_test_robot/QtTestFrame.h	/^      double my_inc_X;$/;"	m	class:QT_TEST::TrajElement
+my_inc_Y	qt_test_robot/QtTestFrame.h	/^      double my_inc_Y;$/;"	m	class:QT_TEST::TrajElement
+my_robot	qt_test_robot/QtTestFrame.h	/^      RobotImg *my_robot;$/;"	m	class:QT_TEST::QtRobotPlaygroundWidget
+my_sampling_freq	qt_test_robot/QtTestFrame.h	/^      double my_sampling_freq;$/;"	m	class:QT_TEST::TrajElement
+my_type	qt_test_robot/QtTestFrame.h	/^      TrajElementType my_type;$/;"	m	class:QT_TEST::TrajElement
+operator ++	qt_test_robot/QtTestFrame.h	/^      TrajElement operator++ (int) {TrajElement result = *this; Increment(); return result;};$/;"	f	class:QT_TEST::TrajElement
+operator ++	qt_test_robot/QtTestFrame.h	/^      TrajElement& operator++ () {Increment(); return *this;};$/;"	f	class:QT_TEST::TrajElement
+perimeter	qt_test_robot/QtTestFrame.h	/^      QVector<QPointF> perimeter;$/;"	m	class:QT_TEST::RobotImg
+pos_theta	qt_test_robot/QtTestFrame.h	/^      double pos_theta;$/;"	m	class:QT_TEST::RobotImg
+pos_x	qt_test_robot/QtTestFrame.h	/^      double pos_x;$/;"	m	class:QT_TEST::RobotImg
+pos_y	qt_test_robot/QtTestFrame.h	/^      double pos_y;$/;"	m	class:QT_TEST::RobotImg
+x_off	qt_test_robot/QtTestFrame.h	/^      int x_off, y_off;$/;"	m	class:QT_TEST::UtilArrow
+y_off	qt_test_robot/QtTestFrame.h	/^      int x_off, y_off;$/;"	m	class:QT_TEST::UtilArrow
+~QtRobotPlaygroundWidget	qt_test_robot/QtTestFrame.h	/^      virtual ~QtRobotPlaygroundWidget() {}$/;"	f	class:QT_TEST::QtRobotPlaygroundWidget
+~QtTestAlarmIcon	qt_test_robot/QtTestFrame.h	/^      virtual ~QtTestAlarmIcon() {}$/;"	f	class:QT_TEST::QtTestAlarmIcon
+~QtTestComponentManager	qt_test_robot/QtTestComponentManager.cpp	/^  QtTestComponentManager::~QtTestComponentManager()$/;"	f	class:QT_TEST::QtTestComponentManager
+~QtTestFrame	qt_test_robot/QtTestFrame.h	/^      virtual ~QtTestFrame() {}$/;"	f	class:QT_TEST::QtTestFrame
+~QtTestNetworkInterfaceStatus	qt_test_robot/QtTestNetworkInterfaceStatus.h	/^      virtual ~QtTestNetworkInterfaceStatus() {}$/;"	f	class:QT_TEST::QtTestNetworkInterfaceStatus
