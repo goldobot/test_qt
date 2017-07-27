@@ -262,6 +262,9 @@ namespace QT_TEST
         double time1 = speed/acceleration;
         double full_time = my_dist/speed + speed/acceleration;
         double time2 = full_time - time1;
+        double compute_distance1 = 0.5 * acceleration * time1 * time1;
+        double compute_distance2 = speed * (time2 - time1) + compute_distance1;
+        double compute_distance3 = my_dist - compute_distance2; 
 
         printf("\n\n\n\n\n");
 
@@ -269,12 +272,10 @@ namespace QT_TEST
         printf("m_anim_time : %lf\n",m_anim_time);
 
         if (m_anim_time < time1) {
-          double compute_distance = 0.5 * acceleration * time1 * time1;
-          double inc_compute_D = (compute_distance/(time1 * ANIMATION_SAMPLING_FREQ));
+          double inc_compute_D = (compute_distance1/(time1 * ANIMATION_SAMPLING_FREQ));
           double inc_X = inc_compute_D * cos(my_robot->GetTheta());
           double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
           printf("time1\n");
-          printf("compute_distance : %lf\n", compute_distance);
           printf("inc_compute_D : %lf\n", inc_compute_D);
           printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
 
@@ -282,13 +283,10 @@ namespace QT_TEST
           my_robot->SetY(my_robot->GetY() + inc_Y);
         }
         else if (m_anim_time < time2) {
-          double compute_distance1 = 0.5 * acceleration * time1;
-          double compute_distance = speed * (time2 - time1) + compute_distance1; 
-          double inc_compute_D = (compute_distance/((time2-time1) * ANIMATION_SAMPLING_FREQ));
+          double inc_compute_D = (compute_distance2/((time2-time1) * ANIMATION_SAMPLING_FREQ));
           double inc_X = inc_compute_D * cos(my_robot->GetTheta());
           double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
           printf("time2\n");
-          printf("compute_distance : %lf\n", compute_distance);
           printf("inc_compute_D : %lf\n", inc_compute_D);
 
           printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
@@ -297,15 +295,10 @@ namespace QT_TEST
           my_robot->SetY(my_robot->GetY() + inc_Y);
         }
         else if (m_anim_time < full_time) {
-          // double compute_distance = acceleration * time1 * m_anim_time - 0.5 * acceleration * m_anim_time * m_anim_time + acceleration * time2 * m_anim_time;
-          double compute_distance1 = 0.5 * acceleration * time1;
-          double compute_distance2 = speed * (time2 - time1) + compute_distance1;
-          double compute_distance = my_dist - compute_distance2;
-          double inc_compute_D = (compute_distance/(full_time - time2 * ANIMATION_SAMPLING_FREQ));
+          double inc_compute_D = (compute_distance3/((full_time - time2) * ANIMATION_SAMPLING_FREQ));
           double inc_X = inc_compute_D * cos(my_robot->GetTheta());
           double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
           printf("full_time\n");
-          printf("compute_distance : %lf\n", compute_distance);
           printf("inc_compute_D : %lf\n", inc_compute_D);
 
           printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
