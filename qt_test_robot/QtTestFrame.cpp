@@ -257,14 +257,17 @@ namespace QT_TEST
     
     if (edit_traj_te.isEmpty()) {
         double my_dist = 500.0;
-        double speed = 20.0;
-        double acceleration = 7.0;
+        double speed = 50.0;
+        double acceleration = 12.0;
         double time1 = speed/acceleration;
         double full_time = my_dist/speed + speed/acceleration;
         double time2 = full_time - time1;
         double compute_distance1 = 0.5 * acceleration * time1 * time1;
+        double compute_distance1_progressive = 0.5 * acceleration * m_anim_time * m_anim_time;
         double compute_distance2 = speed * (time2 - time1) + compute_distance1;
-        double compute_distance3 = my_dist - compute_distance2; 
+        // Je ne suis pas satisfait par la formule, j'ai encore l'impression qu'il y a un probleme pour compute_distance3_progressive 
+        // Je n'arrive pas a trouver une formulation qui me semble correcte.
+        double compute_distance3_progressive = acceleration * time1 - acceleration * (m_anim_time - time2);
 
         printf("\n\n\n\n\n");
 
@@ -272,7 +275,7 @@ namespace QT_TEST
         printf("m_anim_time : %lf\n",m_anim_time);
 
         if (m_anim_time < time1) {
-          double inc_compute_D = (compute_distance1/(time1 * ANIMATION_SAMPLING_FREQ));
+          double inc_compute_D = (compute_distance1_progressive/(time1 * ANIMATION_SAMPLING_FREQ));
           double inc_X = inc_compute_D * cos(my_robot->GetTheta());
           double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
           printf("time1\n");
@@ -295,7 +298,7 @@ namespace QT_TEST
           my_robot->SetY(my_robot->GetY() + inc_Y);
         }
         else if (m_anim_time < full_time) {
-          double inc_compute_D = (compute_distance3/((full_time - time2) * ANIMATION_SAMPLING_FREQ));
+          double inc_compute_D = (compute_distance3_progressive/((full_time - time2) * ANIMATION_SAMPLING_FREQ));
           double inc_X = inc_compute_D * cos(my_robot->GetTheta());
           double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
           printf("full_time\n");
