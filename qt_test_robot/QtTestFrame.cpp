@@ -254,45 +254,63 @@ namespace QT_TEST
   QtRobotPlaygroundWidget::AnimationTimerTick() 
   {
     if (!m_anim_running) return;
-
+    
     if (edit_traj_te.isEmpty()) {
-      if (m_anim_time < 4.0) {
-        double my_dist = 1000.0;
-        double my_time = 4.0;
-        double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
-        double inc_X = inc_D*cos(my_robot->GetTheta());
-        double inc_Y = inc_D*sin(my_robot->GetTheta());
-        my_robot->SetX(my_robot->GetX() + inc_X);
-        my_robot->SetY(my_robot->GetY() + inc_Y);
-      } else if (m_anim_time < 7.9) {
-        double my_angle = (-M_PI/2);
-        double my_time = 4.0;
-        double inc_Theta = (my_angle/(my_time*ANIMATION_SAMPLING_FREQ));
-        my_robot->SetTheta(my_robot->GetTheta() + inc_Theta);
-      } else if (m_anim_time < 12.0) {
-        double my_dist = 1500.0;
-        double my_time = 4.0;
-        double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
-        double inc_X = inc_D*cos(my_robot->GetTheta());
-        double inc_Y = inc_D*sin(my_robot->GetTheta());
-        my_robot->SetX(my_robot->GetX() + inc_X);
-        my_robot->SetY(my_robot->GetY() + inc_Y);
-      } else if (m_anim_time < 15.9) {
-        double my_angle = (-2.0*M_PI/3);
-        double my_time = 4.0;
-        double inc_Theta = (my_angle/(my_time*ANIMATION_SAMPLING_FREQ));
-        my_robot->SetTheta(my_robot->GetTheta() + inc_Theta);
-      } else if (m_anim_time < 20.0) {
         double my_dist = 500.0;
-        double my_time = 4.0;
-        double inc_D = (my_dist/(my_time*ANIMATION_SAMPLING_FREQ));
-        double inc_X = inc_D*cos(my_robot->GetTheta());
-        double inc_Y = inc_D*sin(my_robot->GetTheta());
-        my_robot->SetX(my_robot->GetX() + inc_X);
-        my_robot->SetY(my_robot->GetY() + inc_Y);
-      } else {
-        m_anim_running = false;
-      }
+        double speed = 50.0;
+        double acceleration = 12.0;
+        double time1 = speed/acceleration;
+        double full_time = my_dist/speed + speed/acceleration;
+        double time2 = full_time - time1;
+        double compute_distance1 = 0.5 * acceleration * time1 * time1;
+        double compute_distance1_progressive = 0.5 * acceleration * m_anim_time * m_anim_time;
+        double compute_distance2 = speed * (time2 - time1) + compute_distance1;
+        // Je ne suis pas satisfait par la formule, j'ai encore l'impression qu'il y a un probleme pour compute_distance3_progressive 
+        // Je n'arrive pas a trouver une formulation qui me semble correcte.
+        double compute_distance3_progressive = acceleration * time1 - acceleration * (m_anim_time - time2);
+
+        printf("\n\n\n\n\n");
+
+        printf("time1 : %lf\n time2 : %lf\n full_time : %lf\n", time1, time2, full_time);
+        printf("m_anim_time : %lf\n",m_anim_time);
+
+        if (m_anim_time < time1) {
+          double inc_compute_D = (compute_distance1_progressive/(time1 * ANIMATION_SAMPLING_FREQ));
+          double inc_X = inc_compute_D * cos(my_robot->GetTheta());
+          double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
+          printf("time1\n");
+          printf("inc_compute_D : %lf\n", inc_compute_D);
+          printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
+
+          my_robot->SetX(my_robot->GetX() + inc_X);
+          my_robot->SetY(my_robot->GetY() + inc_Y);
+        }
+        else if (m_anim_time < time2) {
+          double inc_compute_D = (compute_distance2/((time2-time1) * ANIMATION_SAMPLING_FREQ));
+          double inc_X = inc_compute_D * cos(my_robot->GetTheta());
+          double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
+          printf("time2\n");
+          printf("inc_compute_D : %lf\n", inc_compute_D);
+
+          printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
+
+          my_robot->SetX(my_robot->GetX() + inc_X);
+          my_robot->SetY(my_robot->GetY() + inc_Y);
+        }
+        else if (m_anim_time < full_time) {
+          double inc_compute_D = (compute_distance3_progressive/((full_time - time2) * ANIMATION_SAMPLING_FREQ));
+          double inc_X = inc_compute_D * cos(my_robot->GetTheta());
+          double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
+          printf("full_time\n");
+          printf("inc_compute_D : %lf\n", inc_compute_D);
+
+          printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
+
+          my_robot->SetX(my_robot->GetX() + inc_X);
+          my_robot->SetY(my_robot->GetY() + inc_Y);
+        } else {
+          m_anim_running = false;
+        }
     } else {
       TrajElement &te = edit_traj_te[m_anim_index];
       if (m_anim_time < te.GetTf()) {
@@ -567,7 +585,7 @@ namespace QT_TEST
   {
     QFrame::paintEvent(event);
 
-#if 0 /*  FIXME : TODO : belle fleche verte.. on garde ca comme example.. */
+#if 0 /*  FIXME : TODO : belle fleche verte.. on garde ca comme exemple.. */
     QPainter painter(this);
 
     QPen my_pen1 (Qt::black, 4, Qt::SolidLine);
