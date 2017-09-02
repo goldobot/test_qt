@@ -89,7 +89,6 @@ namespace QT_TEST
     for (QVector<QPointF>::const_iterator iP_n = perimeter.constBegin(); iP_n != perimeter.constEnd(); iP_n++) {
       QPointF orig_P = (*iP_n);
       QPointF real_P;
-
       RotateQPointF(orig_P, pos_theta, real_P);
 
       real_P += QPointF(pos_x,pos_y);
@@ -313,16 +312,87 @@ namespace QT_TEST
         }
     } else {
       TrajElement &te = edit_traj_te[m_anim_index];
-      if (m_anim_time < te.GetTf()) {
-        my_robot->SetX(te.GetX());
-        my_robot->SetY(te.GetY());
-        my_robot->SetTheta(te.GetTheta());
-        te.Increment();
-      } else {
-        m_anim_index++;
+
+      TrajElement previouste; 
+      if (m_anim_index != 0) {
+        previouste = edit_traj_te[m_anim_index-1];
+      }
+
+      my_robot->SetTheta(te.GetTheta());
+
+      double somme_carrees_XY = (te.GetX() - previouste.GetX()) * (te.GetX() - previouste.GetX()) + (te.GetY() - previouste.GetY()) * (te.GetY() - previouste.GetY());
+      double my_dist = sqrt(somme_carrees_XY); 
+      double speed = 60.0;
+      double acceleration = 12.0;
+      double time1 = speed/acceleration;
+      //double full_time = (double) (te.GetTf());
+      double full_time = my_dist/speed + speed/acceleration;
+      double time2 = full_time - time1;
+      double compute_distance1 = 0.5 * acceleration * time1 * time1;
+      double compute_distance1_progressive = 0.5 * acceleration * m_anim_time * m_anim_time;
+      double compute_distance2 = speed * (time2 - time1) + compute_distance1;
+      double compute_distance3_progressive = acceleration * time1 - acceleration * (m_anim_time - time2);
+
+      // Question à propos de Tf
+
+      //if (m_anim_time < te.GetTf()) {
+      //  my_robot->SetX(te.GetX());
+      //  my_robot->SetY(te.GetY());
+      //  my_robot->SetTheta(te.GetTheta());
+      //  te.Increment();
+      //} else {
+      //  m_anim_index++;
+      //} 
+
+
+      printf("time 1: %lf\n", time1);
+      printf("time 2: %lf\n", time2);
+      printf("full_time: %lf\n", full_time);
+      printf("time : %lf\n", m_anim_time);
+      if (m_anim_time < time1) {
+          double inc_compute_D = (compute_distance1_progressive/(time1 * ANIMATION_SAMPLING_FREQ));
+          double inc_X = inc_compute_D * cos(my_robot->GetTheta());
+          double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
+          printf("time1\n");
+          printf("inc_compute_D : %lf\n", inc_compute_D);
+          printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
+
+          my_robot->SetX(my_robot->GetX() + inc_X);
+          my_robot->SetY(my_robot->GetY() + inc_Y);
+          te.Increment();
+       }
+       else if (m_anim_time < time2) {
+          double inc_compute_D = (compute_distance2/((time2-time1) * ANIMATION_SAMPLING_FREQ));
+          double inc_X = inc_compute_D * cos(my_robot->GetTheta());
+          double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
+          printf("time2\n");
+          printf("inc_compute_D : %lf\n", inc_compute_D);
+
+          printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
+
+          my_robot->SetX(my_robot->GetX() + inc_X);
+          my_robot->SetY(my_robot->GetY() + inc_Y);
+          te.Increment();
+       }
+       else if (m_anim_time < full_time) {
+          double inc_compute_D = (compute_distance3_progressive/((full_time - time2) * ANIMATION_SAMPLING_FREQ));
+          double inc_X = inc_compute_D * cos(my_robot->GetTheta());
+          double inc_Y = inc_compute_D * sin(my_robot->GetTheta());
+          printf("full_time\n");
+          printf("inc_compute_D : %lf\n", inc_compute_D);
+
+          printf("inc_X : %lf, inc_Y  : %lf\n", inc_X, inc_Y);
+
+          my_robot->SetX(my_robot->GetX() + inc_X);
+          my_robot->SetY(my_robot->GetY() + inc_Y);
+          te.Increment();
+       } else {
+          m_anim_index++;
+       }
+
+
 
         if (m_anim_index > edit_traj_te.size()) m_anim_running = false;
-      }
     }
 
     repaint();
